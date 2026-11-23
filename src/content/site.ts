@@ -218,6 +218,10 @@ export const SECRETS = {
     pt: "Curiosidade sobre mim: sou entusiasta do mercado financeiro e adoro estudar como ele funciona.",
     en: "A fun fact about me: I'm a financial markets enthusiast and I love studying how they work.",
   },
+  claude: {
+    pt: "sim, foi o claude que fez",
+    en: "yes, claude made this",
+  },
 };
 
 export type SecretId = keyof typeof SECRETS;
@@ -228,6 +232,7 @@ export const UI = {
   simple: { pt: "Modo leitura", en: "Reading mode" },
   room: { pt: "Ver escritório", en: "View office" },
   close: { pt: "Fechar", en: "Close" },
+  sheetHandle: { pt: "Ajustar altura do painel", en: "Resize panel" },
   back: { pt: "Voltar", en: "Back" },
   loading: { pt: "Arrumando o escritório", en: "Tidying up the office" },
   loadingSteps: [

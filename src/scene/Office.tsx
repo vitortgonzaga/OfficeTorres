@@ -37,6 +37,7 @@ import {
   drawTicker,
   makeTexture,
   redraw,
+  drawHiddenNote,
   useTexture,
 } from "./textures";
 
@@ -786,6 +787,51 @@ function usePortrait() {
 }
 
 /** A small yellow dot that hides a secret. */
+/** A sticky note on the wall behind the plant, with its lower edge curling away. */
+function HiddenNote() {
+  const { focus, secret } = useSceneApi();
+  const map = useTexture(360, 360, drawHiddenNote);
+  const material = useRef<THREE.MeshBasicMaterial>(null);
+  const geometry = useMemo(() => {
+    const sheet = new THREE.PlaneGeometry(0.2, 0.2, 8, 8);
+    const points = sheet.attributes.position;
+    for (let i = 0; i < points.count; i += 1) {
+      const lift = Math.max(0, 0.04 - points.getY(i)) / 0.14;
+      points.setZ(i, lift * lift * 0.028);
+    }
+    sheet.computeVertexNormals();
+    return sheet;
+  }, []);
+  useEffect(() => () => geometry.dispose(), [geometry]);
+  useFrame(() => {
+    if (material.current) material.current.color.setScalar(THREE.MathUtils.lerp(0.62, 1, Math.max(daylight.value, 0)));
+  });
+  return (
+    <group position={[3.72, 2.28, 0.008]} rotation={[0, 0, -0.09]} scale={0.75}>
+      <mesh position={[0.006, -0.012, -0.002]}>
+        <planeGeometry args={[0.205, 0.205]} />
+        <meshBasicMaterial color="#000000" transparent opacity={0.22} depthWrite={false} />
+      </mesh>
+      <mesh
+        geometry={geometry}
+        onClick={(event) => {
+          event.stopPropagation();
+          if (!focus && event.delta <= 8 && !ballIsBusy()) secret("claude", event.clientX, event.clientY);
+        }}
+        onPointerOver={(event) => {
+          event.stopPropagation();
+          if (!focus && event.pointerType === "mouse") document.body.style.cursor = "pointer";
+        }}
+        onPointerOut={() => {
+          if (!ballInput.grabbing) document.body.style.cursor = "";
+        }}
+      >
+        <meshBasicMaterial ref={material} map={map} side={THREE.DoubleSide} toneMapped={false} />
+      </mesh>
+    </group>
+  );
+}
+
 function SecretDot({ id, p }: { id: SecretId; p: V3 }) {
   const { focus, secret } = useSceneApi();
   if (focus) return null;
@@ -1776,6 +1822,7 @@ export function Office() {
       <WindowWithCurtain />
       <Wall />
       <Racket />
+      <HiddenNote />
       <Desk />
       <DeskObjects />
       <TrophyShelf />

@@ -2,6 +2,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import type { SpotId } from "../content/site";
+import { sheetView } from "../ui/sheetView";
 import { ballInput, lookMode } from "./ballInput";
 import type { V3 } from "./parts";
 import { updateLookLabels } from "./Spot";
@@ -10,7 +11,6 @@ const PANEL_BREAKPOINT = 860;
 const PANEL_WIDTH = 480;
 const WIDE_PANEL = 760;
 const SHEET_RATIO = 0.6;
-const LOOK_SHEET_RATIO = 0.46;
 const BASE_FOV = 24;
 /** On upright phones the camera stands inside the room and turns like a head. */
 const LOOK = { x: 0, y: 1.72, z: 4.7, fov: 60, focusFov: 46, yaw: 0.8, pitch: 1.75 };
@@ -58,6 +58,13 @@ export function OfficeCamera({ focus, reduced }: { focus: SpotId | null; reduced
   const goalLook = useRef(new THREE.Vector3());
 
   useEffect(() => invalidate(), [focus, size, invalidate]);
+
+  useEffect(() => {
+    sheetView.onChange = invalidate;
+    return () => {
+      sheetView.onChange = null;
+    };
+  }, [invalidate]);
 
   useEffect(() => {
     const element = gl.domElement;
@@ -152,7 +159,7 @@ export function OfficeCamera({ focus, reduced }: { focus: SpotId | null; reduced
 
     // Shift the projection so the focused object stays clear of the open panel.
     const goalX = focus && wide ? panelFor(focus, size.width) / 2 : 0;
-    const goalY = focus && !wide ? (size.height * (looking ? LOOK_SHEET_RATIO : SHEET_RATIO)) / 2 : 0;
+    const goalY = focus && !wide ? (size.height * (looking ? sheetView.ratio : SHEET_RATIO)) / 2 : 0;
     offset.current.x = damp(offset.current.x, goalX, speed, delta);
     offset.current.y = damp(offset.current.y, goalY, speed, delta);
     // A tight depth range keeps surfaces that are close together from flickering.

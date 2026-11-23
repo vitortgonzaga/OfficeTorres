@@ -3,6 +3,7 @@ import { PROJECTS } from "./content/projects";
 import { ABOUT, SECRETS, SPOTS, TOUR, UI, type Lang, type SecretId, type SpotId } from "./content/site";
 import type { ScoreKind } from "./scene/ballInput";
 import { SpotContent } from "./ui/SpotContent";
+import { useBottomSheet } from "./ui/useBottomSheet";
 
 const Scene = lazy(() => import("./scene/OfficeScene"));
 
@@ -72,14 +73,29 @@ const LOADER_FINISH_MS = 300;
 /** Lets the loader reach the screen first, because building the office blocks the page. */
 const LOADER_PAINT_MS = 120;
 
+/** Opposite faces add up to 7, like a real die. Pips are cells of a 3x3 grid. */
+const DIE_FACES = [
+  { side: "front", pips: [4] },
+  { side: "back", pips: [0, 2, 3, 5, 6, 8] },
+  { side: "right", pips: [0, 4, 8] },
+  { side: "left", pips: [0, 2, 6, 8] },
+  { side: "top", pips: [2, 6] },
+  { side: "bottom", pips: [0, 2, 4, 6, 8] },
+];
+
 function Loader({ lang, step, finishing, done }: { lang: Lang; step: number; finishing: boolean; done: boolean }) {
   return (
     <div className={`loader${finishing ? " finishing" : ""}${done ? " done" : ""}`} role="status" aria-label={UI.loading[lang]}>
       <div className="loader-court" aria-hidden="true">
-        <svg className="loader-ball" viewBox="0 0 48 48">
-          <circle cx="24" cy="24" r="21.5" />
-          <path d="M2.5 24h43M24 2.5v43M8.8 8.8c7.2 8.4 7.2 22 0 30.4M39.2 8.8c-7.2 8.4-7.2 22 0 30.4" />
-        </svg>
+        <span className="loader-die">
+          <span className="die-cube">
+            {DIE_FACES.map(({ side, pips }) => (
+              <span key={side} className={`die-face ${side}`}>
+                {Array.from({ length: 9 }, (_, cell) => <i key={cell} className={pips.includes(cell) ? "on" : undefined} />)}
+              </span>
+            ))}
+          </span>
+        </span>
         <span className="loader-shadow" />
         <span className="loader-floor" />
       </div>
@@ -172,13 +188,14 @@ function RoomIcon() {
 }
 
 function SecretCard({ secret, lang, onClose }: { secret: { id: SecretId; x: number; y: number }; lang: Lang; onClose: () => void }) {
-  const width = Math.min(310, window.innerWidth - 24);
+  const isNote = secret.id === "claude";
+  const width = Math.min(isNote ? 250 : 310, window.innerWidth - 24);
   const left = Math.max(12, Math.min(secret.x - width / 2, window.innerWidth - width - 12));
   const below = secret.y < window.innerHeight * 0.55;
   const style = below ? { left, width, top: secret.y + 18 } : { left, width, bottom: window.innerHeight - secret.y + 18 };
   return (
-    <div className="secret-card" role="status" style={style}>
-      <span className="secret-dot" aria-hidden="true" />
+    <div className={`secret-card${isNote ? " is-note" : ""}`} role="status" style={style}>
+      {!isNote && <span className="secret-dot" aria-hidden="true" />}
       <p>{SECRETS[secret.id][lang]}</p>
       <button onClick={onClose} aria-label={UI.secretClose[lang]}>✕</button>
     </div>
@@ -202,6 +219,7 @@ function Panel({ route, lang, onClose, onNavigate }: { route: Route & { spot: Sp
   const ref = useRef<HTMLElement>(null);
   const project = route.slug ? PROJECTS.find((item) => item.slug === route.slug) : undefined;
   const path = `~/room/${spot.id}${route.slug ? `/${route.slug}` : ""}`;
+  useBottomSheet(ref, onClose);
 
   useEffect(() => {
     ref.current?.focus({ preventScroll: true });
@@ -210,6 +228,7 @@ function Panel({ route, lang, onClose, onNavigate }: { route: Route & { spot: Sp
 
   return (
     <aside ref={ref} className="panel" role="dialog" aria-label={project ? project.title[lang] : spot.label[lang]} tabIndex={-1} key={route.spot}>
+      <button className="sheet-handle" aria-label={UI.sheetHandle[lang]}><span /></button>
       <header className="panel-head">
         {project ? (
           <button className="icon-button" onClick={() => onNavigate(route.spot)} aria-label={UI.back[lang]}>←</button>

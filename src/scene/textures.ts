@@ -167,19 +167,23 @@ export function drawStackBanner(items: string[]): Draw {
       c.closePath();
     };
     outline(0);
-    c.fillStyle = "#b9472a";
+    const cloth = c.createLinearGradient(0, 0, w, h);
+    cloth.addColorStop(0, "#172238");
+    cloth.addColorStop(1, "#232f4b");
+    c.fillStyle = cloth;
     c.fill();
     outline(18);
-    c.strokeStyle = "#f6e7c8";
+    c.strokeStyle = "#ff9d2a";
     c.lineWidth = 6;
     c.stroke();
-    c.fillStyle = "#a33c22";
+    c.fillStyle = "#101a2d";
     c.fillRect(18, 18, w - 36, 104);
     c.textAlign = "center";
     c.textBaseline = "middle";
-    c.fillStyle = "#fff4dc";
+    c.fillStyle = "#ff9d2a";
     c.font = `800 74px ${DISPLAY}`;
     c.fillText("STACK", w / 2, 74);
+    c.fillStyle = "#ffffff";
     c.font = `700 45px ${DISPLAY}`;
     const top = 178;
     const step = 69;
@@ -199,9 +203,9 @@ export const drawCork: Draw = (c, w, h) => {
     c.fillRect(noise(i + 0.3) * w, noise(i + 0.7) * h, 1.5 + noise(i + 0.1) * 3.5, 1.5 + noise(i + 0.9) * 2.5);
   }
   const cards: Array<{ name: string; place: string; date: string; tags: string; color: string; angle: number }> = [
-    { name: "eHealth", place: "Inatel", date: "2023 – 2025", tags: "Python · OpenCV · Flutter", color: "#e4577a", angle: -0.018 },
-    { name: "Multittech", place: "Engenharia", date: "2025 – 2026", tags: "Python · AWS · ETL", color: "#2f8fd8", angle: 0.012 },
-    { name: "LEVTY", place: "SYDLE ONE", date: "2026 →", tags: "APIs · CRM · Elasticsearch", color: "#f0a12c", angle: -0.01 },
+    { name: "eHealth", place: "Inatel", date: "2023 – 2025", tags: "Python · OpenCV · Flutter", color: "#14306e", angle: -0.018 },
+    { name: "Multittech", place: "Engenharia", date: "2025 – 2026", tags: "Python · AWS · ETL", color: "#ee7a16", angle: 0.012 },
+    { name: "LEVTY", place: "SYDLE ONE", date: "2026 →", tags: "APIs · CRM · Elasticsearch", color: "#2aa9e8", angle: -0.01 },
   ];
   const cardW = 440;
   const cardH = 500;
@@ -448,4 +452,35 @@ export const drawResume: Draw = (c, w, h) => {
     c.fillStyle = width < 0.55 ? "#27305c" : "#a9b0d6";
     c.fillRect(26, 102 + i * 24, (w - 52) * width, width < 0.55 ? 10 : 7);
   });
+};
+
+/** The hidden sticky note, written with a marker. */
+export const drawHiddenNote: Draw = (c, w, h) => {
+  const paper = c.createLinearGradient(0, 0, w, h);
+  paper.addColorStop(0, "#fff07e");
+  paper.addColorStop(0.65, "#ffe14f");
+  paper.addColorStop(1, "#efc52f");
+  c.fillStyle = paper;
+  c.fillRect(0, 0, w, h);
+  c.fillStyle = "rgba(120, 85, 0, .13)";
+  c.fillRect(0, 0, w, h * 0.13);
+  c.save();
+  c.translate(w / 2, h / 2 + 8);
+  c.rotate(-0.05);
+  // Unreadable on purpose: the message only appears when the note is opened.
+  c.strokeStyle = "#1d1a14";
+  c.lineWidth = 9;
+  c.lineCap = "round";
+  c.lineJoin = "round";
+  [-74, 0, 74].forEach((y, row) => {
+    const half = [118, 132, 92][row];
+    c.beginPath();
+    c.moveTo(-half, y);
+    for (let x = -half; x <= half; x += 7) {
+      const wave = Math.sin(x * 0.17 + row * 2) * 17 + Math.sin(x * 0.071 + row) * 9;
+      c.lineTo(x, y + wave);
+    }
+    c.stroke();
+  });
+  c.restore();
 };
