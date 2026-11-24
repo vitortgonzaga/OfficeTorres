@@ -1822,7 +1822,7 @@ export function Office() {
       <WindowWithCurtain />
       <Wall />
       <Racket />
-      <HiddenNote />
+      {FEATURES.hiddenNote && <HiddenNote />}
       <Desk />
       <DeskObjects />
       <TrophyShelf />

@@ -325,7 +325,6 @@ td:first-child { color: var(--mint); }
 .facts li:first-child { border-top: 0; padding-top: 0; }
 
 .education-years { margin: 2px 0 2px; color: var(--accent); font-size: clamp(38px, 7vw, 52px); font-weight: 800; line-height: 1.05; letter-spacing: -.035em; }
-.about-care { margin-bottom: 4px; }
 .resume-list { margin: 0; padding: 0; list-style: none; }
 .resume-list li { display: flex; align-items: center; gap: 8px; padding: 12px 0; border-top: 1px solid var(--line); }
 .resume-list li:first-child { border-top: 0; padding-top: 0; }
@@ -383,7 +382,7 @@ td:first-child { color: var(--mint); }
 .tooltip.on { opacity: 1; }
 
 .flat { max-width: 720px; margin: 0 auto; padding: 32px 20px 60px; }
-.flat section { padding: 26px 0; border-top: 1px solid var(--line); scroll-margin-top: 90px; }
+.flat > section { padding: 26px 0; border-top: 1px solid var(--line); scroll-margin-top: 90px; }
 .flat section > h2 { margin: 0 0 14px; color: var(--accent); font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
 
 @media (max-aspect-ratio: 4/5) {

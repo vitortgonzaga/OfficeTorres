@@ -9,6 +9,8 @@ interface Props {
   lang: Lang;
   slug?: string;
   onProject: (spot: SpotId, slug?: string) => void;
+  /** Reading mode shows the monitor as the GitHub tab only. */
+  readingMode?: boolean;
 }
 
 const statusLabel = (project: Project): Localized =>
@@ -19,6 +21,14 @@ export const EXTRAS = ["groovetree", "iot-ingestion", "eye-tracking", "etl-pipel
 
 const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 const resolveLink = (url: string) => (url.startsWith("http") ? url : asset(url));
+
+/** In Reading mode the sections share one page, so the visitor is also scrolled to the resumes. */
+function goToResume(onProject: Props["onProject"], readingMode?: boolean) {
+  onProject("resume");
+  if (!readingMode) return;
+  const smooth = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.getElementById("resume")?.scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" });
+}
 
 function ProjectList({ spot, lang, onProject, only }: Pick<Props, "spot" | "lang" | "onProject"> & { only?: string[] }) {
   return (
@@ -118,7 +128,7 @@ function Contact({ lang }: { lang: Lang }) {
   );
 }
 
-export function SpotContent({ spot, lang, slug, onProject }: Props) {
+export function SpotContent({ spot, lang, slug, onProject, readingMode }: Props) {
   const t = (text: Localized) => text[lang];
   const project = slug ? PROJECTS.find((item) => item.slug === slug) : undefined;
   if (project) return <ProjectDetail project={project} lang={lang} />;
@@ -130,18 +140,16 @@ export function SpotContent({ spot, lang, slug, onProject }: Props) {
           <p className="lead">{t(ABOUT.lead)}</p>
           <p>{t(ABOUT.work)}</p>
           <p>{t(ABOUT.outside)}</p>
-          <h4>{t(ABOUT.careTitle)}</h4>
-          <div className="chips about-care">{ABOUT.care.map((item) => <span key={item.en}>{t(item)}</span>)}</div>
-          <h4>{t(ABOUT.aiTitle)}</h4>
-          <p>{t(ABOUT.ai)}</p>
           <p>{t(ABOUT.education)}</p>
-          <p className="mono-note">{t(ABOUT.place)}</p>
+          <div className="actions">
+            <button className="button" onClick={() => goToResume(onProject, readingMode)}>{t(UI.learnMore)} →</button>
+          </div>
         </>
       );
     case "monitor":
       return (
         <Suspense fallback={<p className="mono-note">{t(UI.loading)}</p>}>
-          <MonitorPanel lang={lang} onProject={onProject} initialTab={slug} />
+          <MonitorPanel lang={lang} onProject={onProject} initialTab={slug} githubOnly={readingMode} />
         </Suspense>
       );
     case "trophies":

@@ -50,27 +50,13 @@ export const ABOUT = {
     en: "At work, I build features and integrations for a platform serving a client in the loyalty sector: REST APIs, JavaScript and Elasticsearch, in a system handling around 1M requests per month. Before that, I built data ingestion pipelines in Python running on AWS.",
   },
   outside: {
-    pt: "Fora do trabalho, estou me aprofundando em backend com Java e Spring Boot no FinCore, um ledger de pagamentos open source que estou construindo com PostgreSQL, Flyway, Testcontainers e CI. Em paralelo, construo um projeto de engenharia de dados focado em Python, SQL e pipelines.",
-    en: "Outside work, I'm going deeper into backend with Java and Spring Boot through FinCore, an open-source payments ledger I'm building with PostgreSQL, Flyway, Testcontainers and CI. In parallel, I'm building a data engineering project focused on Python, SQL and pipelines.",
-  },
-  careTitle: { pt: "O que mais me importa", en: "What I care about most" },
-  care: [
-    { pt: "Design de APIs", en: "API design" },
-    { pt: "Testes", en: "Testing" },
-    { pt: "Consistência de dados", en: "Data consistency" },
-    { pt: "Observabilidade", en: "Observability" },
-    { pt: "Como sistemas se comportam ao crescer", en: "How systems behave as they grow" },
-  ] as Localized[],
-  aiTitle: { pt: "Engenharia de IA", en: "AI engineering" },
-  ai: {
-    pt: "Sou AWS Certified AI Practitioner, estudei Inteligência Computacional no Inatel e aplico IA em produto no Rumo, um SaaS que gera roadmaps de estudo personalizados.",
-    en: "I'm AWS Certified AI Practitioner, studied Computational Intelligence at Inatel and apply AI in a real product with Rumo, a SaaS that generates personalized study roadmaps.",
+    pt: "Fora do trabalho, estou me aprofundando em backend com Java e Spring Boot no FinCore, um ledger de pagamentos open source que estou construindo com PostgreSQL, Flyway, Testcontainers e CI. Em paralelo, construo um projeto de engenharia de dados focado em Python, SQL e pipelines. Na parte de engenharia de IA, sou AWS Certified AI Practitioner, estudei Inteligência Computacional no Inatel e aplico IA em produto no Rumo, um SaaS que gera roadmaps de estudo personalizados.",
+    en: "Outside work, I'm going deeper into backend with Java and Spring Boot through FinCore, an open-source payments ledger I'm building with PostgreSQL, Flyway, Testcontainers and CI. In parallel, I'm building a data engineering project focused on Python, SQL and pipelines. On the AI engineering side, I'm an AWS Certified AI Practitioner, studied Computational Intelligence at Inatel and apply AI in a real product with Rumo, a SaaS that generates personalized study roadmaps.",
   },
   education: {
-    pt: "Estou concluindo o bacharelado em Engenharia de Software no Inatel, onde também trabalhei em um sistema de rastreamento ocular para ajudar pessoas com ELA a interagir com o ambiente.",
-    en: "I'm finishing my B.Sc. in Software Engineering at Inatel, where I also worked on an eye-tracking system to help people with ALS interact with their environment.",
+    pt: "Estou concluindo o bacharelado em Engenharia de Software no Inatel.",
+    en: "I'm finishing my B.Sc. in Software Engineering at Inatel.",
   },
-  place: { pt: "Moro em Guaratinguetá, SP. Falo português e inglês (B2).", en: "I live in Guaratinguetá, Brazil. I speak Portuguese and English (B2)." },
 };
 
 export const EXPERIENCE: Array<{ company: string; role: Localized; date: Localized; points: Localized[] }> = [
@@ -211,12 +197,12 @@ export const CERTIFICATION = {
 
 export const SECRETS = {
   sports: {
-    pt: "Curiosidade sobre mim: estou sempre por dentro do que acontece no mundo dos esportes.",
-    en: "A fun fact about me: I always keep up with what's happening in the world of sports.",
+    pt: "Sobre mim: estou sempre por dentro do que acontece no mundo dos esportes.",
+    en: "About me: I always keep up with what's happening in the world of sports.",
   },
   market: {
-    pt: "Curiosidade sobre mim: sou entusiasta do mercado financeiro e adoro estudar como ele funciona.",
-    en: "A fun fact about me: I'm a financial markets enthusiast and I love studying how they work.",
+    pt: "Sobre mim: sou entusiasta do mercado financeiro e adoro estudar como ele funciona.",
+    en: "About me: I'm a financial markets enthusiast and I love studying how they work.",
   },
   claude: {
     pt: "sim, foi o claude que fez",
@@ -278,6 +264,7 @@ export const UI = {
   trophyHint: { pt: "Os projetos de que mais me orgulho. Ainda tem espaço na prateleira.", en: "The projects I'm proudest of. There's still room on the shelf." },
   extrasHint: { pt: "Outras coisas que construí pelo caminho.", en: "Other things I've built along the way." },
   seeExtras: { pt: "Ver outros projetos", en: "See other projects" },
+  learnMore: { pt: "Saiba mais", en: "Learn more" },
   secretClose: { pt: "Fechar segredo", en: "Close secret" },
   lookHint: { pt: "Arraste para olhar em volta", en: "Drag to look around" },
   menu: { pt: "Abrir menu", en: "Open menu" },

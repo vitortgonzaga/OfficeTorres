@@ -248,16 +248,19 @@ function Panel({ route, lang, onClose, onNavigate }: { route: Route & { spot: Sp
   );
 }
 
+/** Reading mode puts the experience right after the introduction and before the projects. */
+const FLAT_SPOTS = [...SPOTS.filter((spot) => spot.id === "about"), ...SPOTS.filter((spot) => spot.id === "cork"), ...SPOTS.filter((spot) => spot.id !== "about" && spot.id !== "cork")];
+
 function FlatVersion({ lang, onProject, route }: { lang: Lang; onProject: (spot: SpotId, slug?: string) => void; route: Route }) {
   return (
     <main className="flat">
-      {SPOTS.map((spot) => (
+      {FLAT_SPOTS.map((spot) => (
         <section key={spot.id} id={spot.id}>
-          <h2>{spot.label[lang]}</h2>
+          <h2>{spot.id === "monitor" ? "GitHub" : spot.label[lang]}</h2>
           {route.spot === spot.id && PROJECTS.some((item) => item.slug === route.slug) && (
             <button className="text-link" onClick={() => onProject(spot.id)}>← {UI.back[lang]}</button>
           )}
-          <SpotContent spot={spot.id} slug={route.spot === spot.id ? route.slug : undefined} lang={lang} onProject={onProject} />
+          <SpotContent spot={spot.id} slug={route.spot === spot.id ? route.slug : undefined} lang={lang} onProject={onProject} readingMode />
         </section>
       ))}
     </main>

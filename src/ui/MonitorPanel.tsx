@@ -32,10 +32,11 @@ function TabIcon({ id }: { id: Tab }) {
   );
 }
 
-export default function MonitorPanel({ lang, onProject, initialTab }: PanelProps & { initialTab?: string }) {
+export default function MonitorPanel({ lang, onProject, initialTab, githubOnly }: PanelProps & { initialTab?: string; githubOnly?: boolean }) {
   const requested: Tab = initialTab === "github" ? "github" : "terminal";
   const [tab, setTab] = useState<Tab>(requested);
   useEffect(() => setTab(requested), [requested]);
+  if (githubOnly) return <GithubTab lang={lang} />;
   return (
     <>
       <div className="monitor-tabs" role="tablist">
