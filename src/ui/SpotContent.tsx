@@ -209,16 +209,6 @@ export function SpotContent({ spot, lang, slug, onProject, readingMode }: Props)
           </div>
           <h4>{t(UI.certCoversTitle)}</h4>
           <div className="chips">{CERTIFICATION.covers.map((item) => <span key={item.en}>{t(item)}</span>)}</div>
-          <h4>{t(UI.certConceptsTitle)}</h4>
-          <dl className="glossary">
-            {CERTIFICATION.concepts.map((concept) => (
-              <div key={concept.term.en}>
-                <dt>{t(concept.term)}</dt>
-                <dd>{t(concept.text)}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="cert-example">{t(CERTIFICATION.example)}</p>
         </>
       );
     case "paper":

@@ -364,11 +364,6 @@ td:first-child { color: var(--mint); }
 
 .hint-narrow { display: none; }
 .timeline ul { margin: 0; padding-left: 18px; }
-.glossary { margin: 0; }
-.glossary > div + div { margin-top: 12px; }
-.glossary dt { font-weight: 700; }
-.glossary dd { margin: 2px 0 0; }
-.cert-example { margin: 18px 0 0; }
 .timeline li + li { margin-top: 6px; }
 .perf-meter { position: fixed; z-index: 20; left: 8px; bottom: 8px; padding: 4px 8px; border-radius: 6px; background: rgba(0, 0, 0, .78); color: #7dffb0; font: 600 11px ui-monospace, monospace; pointer-events: none; }
 .monitor-tabs { display: flex; gap: 3px; margin: -2px 0 14px; padding: 3px; border-radius: 11px; background: var(--code-bg); }
