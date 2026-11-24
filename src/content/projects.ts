@@ -104,8 +104,8 @@ export const PROJECTS: Project[] = [
         en: "A platform for learning Computer Graphics, Multimedia and Computational Intelligence by playing with the concepts right in the browser.",
       },
       overview: {
-        pt: "Fiz com o Marco Di Toro no Inatel, para que o conteúdo da sala de aula virasse algo que dá para ver e testar em tempo real. A primeira versão ganhou o 1º lugar em Impacto Social na FETIN 2025, e a plataforma já foi usada por cerca de 200 estudantes do Inatel.",
-        en: "I built it with Marco Di Toro at Inatel, so classroom content could become something you can see and try in real time. The first version won 1st place in Social Impact at FETIN 2025, and about 200 Inatel students have used the platform.",
+        pt: "Fiz no Inatel para que o conteúdo da sala de aula virasse algo que dá para ver e testar em tempo real. A primeira versão ganhou o 1º lugar em Impacto Social na FETIN 2025, e a plataforma já foi usada por cerca de 200 estudantes do Inatel.",
+        en: "I built it at Inatel, so classroom content could become something you can see and try in real time. The first version won 1st place in Social Impact at FETIN 2025, and about 200 Inatel students have used the platform.",
       },
       stack: [
         { label: "Frontend", items: ["Next.js", "React", "TypeScript", "Tailwind CSS"] },

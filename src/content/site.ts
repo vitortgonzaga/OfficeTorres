@@ -176,8 +176,7 @@ export const COURSEWORK: Array<{ title: Localized; items: Localized[] }> = [
 ];
 
 export const RESUMES: Array<{ title: Localized; pt: string; en: string }> = [
-  { title: { pt: "Backend", en: "Backend" }, pt: "Vitor_Gonzaga_Backend_PT.pdf", en: "Vitor_Gonzaga_Backend_EN.pdf" },
-  { title: { pt: "Dados", en: "Data" }, pt: "Vitor_Gonzaga_Dados_PT.pdf", en: "Vitor_Gonzaga_Data_EN.pdf" },
+  { title: { pt: "Currículo", en: "Resume" }, pt: "Vitor_Gonzaga_PT.pdf", en: "Vitor_Gonzaga_EN.pdf" },
 ];
 
 export const CONTACT = {
