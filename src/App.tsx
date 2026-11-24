@@ -67,6 +67,17 @@ function ThemeSwitch({ day, lang, onToggle }: { day: boolean; lang: Lang; onTogg
   );
 }
 
+function LangSwitch({ lang, onToggle }: { lang: Lang; onToggle: () => void }) {
+  const label = lang === "pt" ? "Switch to English" : "Mudar para português";
+  return (
+    <button className={`theme-switch lang-switch${lang === "pt" ? " is-pt" : ""}`} role="switch" aria-checked={lang === "en"} aria-label={label} title={label} onClick={onToggle}>
+      <span className="lang-label">PT</span>
+      <span className="lang-label">EN</span>
+      <span className="theme-thumb" />
+    </button>
+  );
+}
+
 /** The bar fills for this long, even when the office is ready sooner. */
 const LOADER_MS = 3700;
 const LOADER_FINISH_MS = 300;
@@ -506,9 +517,7 @@ export function App() {
             {flat ? <RoomIcon /> : <ReadingIcon />}
             <span className="long">{flat ? UI.room[lang] : UI.simple[lang]}</span>
           </button>
-          <button className="pill" onClick={() => setLang(lang === "pt" ? "en" : "pt")} aria-label={lang === "pt" ? "Switch to English" : "Mudar para português"}>
-            {lang === "pt" ? "EN" : "PT"}
-          </button>
+          <LangSwitch lang={lang} onToggle={() => setLang(lang === "pt" ? "en" : "pt")} />
         </div>
         {!flat && (
           <button className="menu-button" aria-label={UI.menu[lang]} aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}>
@@ -544,7 +553,7 @@ export function App() {
               <div>
                 <ThemeSwitch day={day} lang={lang} onToggle={toggleDay} />
                 <button className="pill" onClick={toggleFlat}><ReadingIcon />{UI.simple[lang]}</button>
-                <button className="pill" onClick={() => setLang(lang === "pt" ? "en" : "pt")}>{lang === "pt" ? "EN" : "PT"}</button>
+                <LangSwitch lang={lang} onToggle={() => setLang(lang === "pt" ? "en" : "pt")} />
               </div>
             </div>
           )}

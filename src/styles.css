@@ -140,6 +140,28 @@ button { background: none; border: 0; cursor: pointer; padding: 0; }
 }
 .is-flat .topbar { position: sticky; background: var(--dusk); padding-bottom: 12px; border-bottom: 1px solid var(--line); }
 .topbar > * { pointer-events: auto; }
+/* Reading mode: the name is the title, centered, with larger controls under it. */
+.is-flat .topbar {
+  position: static; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: max(40px, env(safe-area-inset-top)) 20px 10px;
+  background: none; border-bottom: 0;
+}
+.is-flat .brand { justify-items: center; text-align: center; }
+.is-flat .brand strong { font-size: clamp(42px, 7vw, 68px); }
+.is-flat .brand span { max-width: none; margin-top: 10px; font-size: clamp(12px, 1.8vw, 16px); white-space: normal; }
+.is-flat .top-actions { order: -1; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; }
+.is-flat .pill { min-height: 52px; padding: 0 22px; font-size: 15px; gap: 9px; white-space: nowrap; }
+.is-flat .pill .long { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+.is-flat .pill-icon { width: 20px; height: 20px; }
+.is-flat .theme-switch { --h: 52px; --t: 42px; --icon: 23px; }
+.is-flat .theme-switch:not(.lang-switch) { --w: 94px; }
+.is-flat .lang-label { font-size: 14px; }
+/* On phones the two switches share the first row and "View office" gets its own row, in either language. */
+@media (max-width: 420px) {
+  .is-flat .top-actions { display: grid; grid-template-columns: auto auto; justify-content: center; gap: 10px; }
+  .is-flat .top-actions > .pill { grid-column: 1 / -1; justify-self: center; order: 2; }
+  .is-flat .theme-switch { --h: 48px; --t: 36px; --icon: 21px; }
+  .is-flat .theme-switch:not(.lang-switch) { --w: 84px; }
+}
 .brand { display: grid; text-align: left; line-height: 1.1; }
 .brand strong { font-size: clamp(25px, 3vw, 38px); font-weight: 800; letter-spacing: -.035em; font-stretch: 85%; }
 .brand span { margin-top: 5px; color: var(--accent); font-family: var(--mono); font-size: 12px; }
@@ -152,20 +174,29 @@ button { background: none; border: 0; cursor: pointer; padding: 0; }
 .pill:hover { border-color: var(--lamp); }
 .pill-icon { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .theme-switch {
-  position: relative; display: inline-flex; align-items: center; justify-content: space-between; width: 72px; height: 40px; padding: 0 9px; flex: none;
+  /* Every size is derived from these values, so the knob keeps the same gap on all four sides. */
+  --h: 40px; --t: 32px; --icon: 19px; --gap: calc((var(--h) - 2px - var(--t)) / 2); --w: 72px;
+  position: relative; display: inline-flex; align-items: center; justify-content: space-between; width: var(--w); height: var(--h);
+  padding: 0 calc(var(--gap) + (var(--t) - var(--icon)) / 2); flex: none;
   border: 1px solid var(--line); border-radius: 999px; background: var(--glass); transition: border-color .2s ease, background .35s ease;
 }
 .theme-switch:hover { border-color: var(--lamp); }
-.theme-icon { position: relative; z-index: 1; width: 19px; height: 19px; transition: color .25s ease, transform .35s ease; }
+.theme-icon { position: relative; z-index: 1; width: var(--icon); height: var(--icon); transition: color .25s ease, transform .35s ease; }
 .theme-icon.sun { color: var(--muted); fill: currentColor; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
 .theme-icon.moon { color: #18191d; fill: currentColor; }
 .theme-thumb {
-  position: absolute; top: 3px; left: 37px; width: 32px; height: 32px; border-radius: 50%; background: #dfe3ee;
+  position: absolute; top: var(--gap); left: calc(var(--w) - 2px - var(--t) - var(--gap)); width: var(--t); height: var(--t); border-radius: 50%; background: #dfe3ee;
   box-shadow: 0 2px 7px rgba(0, 0, 0, .34); transition: left .32s cubic-bezier(.3, 1.4, .5, 1), background .3s ease;
 }
-.theme-switch.is-day .theme-thumb { left: 3px; background: #ffc53d; }
+.theme-switch.is-day .theme-thumb { left: var(--gap); background: #ffc53d; }
 .theme-switch.is-day .theme-icon.sun { color: #5c3b00; transform: rotate(40deg); }
 .theme-switch.is-day .theme-icon.moon { color: var(--muted); }
+/* The language switch is the same control, with PT and EN in place of the sun and moon. */
+.theme-switch.lang-switch { --w: calc(2 * var(--t) + 2 * var(--gap) + 2px); padding: 0 var(--gap); }
+.lang-label { position: relative; z-index: 1; width: var(--t); text-align: center; color: var(--muted); font-family: var(--mono); font-size: 12px; font-weight: 700; transition: color .25s ease; }
+.lang-switch .theme-thumb { background: var(--lamp); }
+.lang-switch.is-pt .theme-thumb { left: var(--gap); }
+.lang-switch.is-pt .lang-label:first-child, .lang-switch:not(.is-pt) .lang-label:nth-child(2) { color: var(--on-lamp); }
 .secret-card {
   position: fixed; z-index: 9; display: flex; align-items: flex-start; gap: 10px; padding: 12px 10px 12px 14px; border-radius: 14px;
   background: #fffbea; color: #2c2410; border: 1px solid #f2d569; box-shadow: 0 14px 34px rgba(0, 0, 0, .3); animation: secret-in .28s cubic-bezier(.2, .9, .3, 1.2);
@@ -447,7 +478,9 @@ td:first-child { color: var(--mint); }
   .mobile-menu nav button:active { background: rgba(225, 225, 228, .12); }
   .mobile-menu > div { display: flex; align-items: center; gap: 6px; padding-top: 10px; border-top: 1px solid var(--line); }
   .mobile-menu .pill { flex: 1; padding: 0 8px; white-space: nowrap; font-size: 11px; }
-  .mobile-menu .pill:last-child { flex: none; min-width: 42px; }
+  .mobile-menu .pill { min-height: 36px; }
+  .mobile-menu .theme-switch { --h: 36px; --t: 28px; --icon: 17px; }
+  .mobile-menu .theme-switch:not(.lang-switch) { --w: 64px; }
   .look-hint {
     display: block; position: absolute; z-index: 4; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); margin: 0; padding: 6px 12px; border-radius: 999px;
     background: var(--glass); color: var(--paper); font-family: var(--mono); font-size: 12px; white-space: nowrap; transform: translateX(-50%); pointer-events: none;
