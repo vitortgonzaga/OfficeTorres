@@ -869,7 +869,7 @@ function SecretDot({ id, p }: { id: SecretId; p: V3 }) {
   );
 }
 
-const BANNER_ART = drawStackBanner(["Java", "Python", "SQL", "Spring Boot", "PostgreSQL", "AWS", "Docker"]);
+const BANNER_ART = drawStackBanner(["Java", "Spring Boot", "Python", "SQL", "MongoDB", "AWS", "Docker"]);
 
 /** A hanging cloth with a very soft ripple. */
 function bannerGeometry() {

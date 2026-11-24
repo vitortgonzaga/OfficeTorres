@@ -207,13 +207,25 @@ export function SpotContent({ spot, lang, slug, onProject, readingMode }: Props)
           <div className="actions">
             <a className="button" href={CERTIFICATION.url} target="_blank" rel="noopener">{t(UI.credential)} ↗</a>
           </div>
+          <h4>{t(UI.certCoversTitle)}</h4>
+          <div className="chips">{CERTIFICATION.covers.map((item) => <span key={item.en}>{t(item)}</span>)}</div>
+          <h4>{t(UI.certConceptsTitle)}</h4>
+          <dl className="glossary">
+            {CERTIFICATION.concepts.map((concept) => (
+              <div key={concept.term.en}>
+                <dt>{t(concept.term)}</dt>
+                <dd>{t(concept.text)}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="cert-example">{t(CERTIFICATION.example)}</p>
         </>
       );
     case "paper":
       return (
         <>
           <h3>{t(UI.paperTitle)}</h3>
-          <p className="mono-note">INCITEL 2025 · {UI.paperAuthors}</p>
+          <p className="mono-note">INCITEL 2025</p>
           <p>{t(UI.paperText)}</p>
           <div className="actions">
             <a className="button" href={asset("assets/ARTIGO_ELA.pdf")} target="_blank" rel="noopener">{t(UI.readArticle)} ↗</a>

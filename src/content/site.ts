@@ -192,6 +192,69 @@ export const CERTIFICATION = {
   issuer: "Amazon Web Services",
   date: { pt: "setembro de 2026", en: "September 2026" },
   url: "https://www.credly.com/badges/74878ff4-71fa-4c93-958c-4c3516a8945d/public_url",
+  /** The exam domains, from AWS's public exam guide. */
+  covers: [
+    { pt: "Fundamentos de IA e ML", en: "Fundamentals of AI and ML" },
+    { pt: "Fundamentos de IA generativa", en: "Fundamentals of generative AI" },
+    { pt: "Aplicações de modelos de fundação", en: "Applications of foundation models" },
+    { pt: "Diretrizes para IA responsável", en: "Guidelines for responsible AI" },
+    { pt: "Segurança, conformidade e governança para soluções de IA", en: "Security, compliance and governance for AI solutions" },
+  ] as Localized[],
+  concepts: [
+    {
+      term: { pt: "Modelo de fundação", en: "Foundation model" },
+      text: {
+        pt: "Um modelo grande, treinado com muitos dados, que serve de base para várias tarefas (texto, imagem, código) sem treinar um modelo novo para cada uma.",
+        en: "A large model trained on lots of data that serves as the base for many tasks (text, image, code) without training a new model for each one.",
+      },
+    },
+    {
+      term: { pt: "Prompt engineering", en: "Prompt engineering" },
+      text: {
+        pt: "Escrever a instrução e o contexto de um jeito que leve o modelo a responder melhor, sem mexer no modelo.",
+        en: "Writing the instruction and context in a way that gets better answers from the model, without changing the model.",
+      },
+    },
+    {
+      term: { pt: "RAG ou fine-tuning", en: "RAG or fine-tuning" },
+      text: {
+        pt: "No RAG, busco trechos de uma base própria e entrego ao modelo junto com a pergunta. No fine-tuning, continuo o treino do modelo com dados de um domínio. O RAG é mais barato de atualizar, e o fine-tuning muda o próprio modelo.",
+        en: "With RAG, I fetch passages from my own data and hand them to the model along with the question. With fine-tuning, I keep training the model on domain data. RAG is cheaper to update, while fine-tuning changes the model itself.",
+      },
+    },
+    {
+      term: { pt: "Alucinação", en: "Hallucination" },
+      text: {
+        pt: "Quando o modelo responde com segurança algo que não é verdade. Por isso a resposta precisa de fonte e de checagem.",
+        en: "When the model confidently states something that isn't true. That's why answers need a source and a check.",
+      },
+    },
+    {
+      term: { pt: "Avaliar um modelo", en: "Evaluating a model" },
+      text: {
+        pt: "Medir com dados que o modelo não viu no treino, e com métricas que combinam com o problema, não só com a acurácia.",
+        en: "Measure it on data the model didn't see in training, with metrics that fit the problem, not just accuracy.",
+      },
+    },
+    {
+      term: { pt: "IA responsável", en: "Responsible AI" },
+      text: {
+        pt: "Perguntar se o modelo trata grupos de forma justa, se protege dados pessoais e se dá para entender e auditar o que ele fez.",
+        en: "Asking whether the model treats groups fairly, protects personal data and whether you can understand and audit what it did.",
+      },
+    },
+    {
+      term: { pt: "Responsabilidade compartilhada", en: "Shared responsibility" },
+      text: {
+        pt: "A AWS cuida da infraestrutura. Dados, acessos e o uso do modelo continuam sendo responsabilidade de quem constrói.",
+        en: "AWS looks after the infrastructure. Data, access and how the model is used remain the builder's responsibility.",
+      },
+    },
+  ] as Array<{ term: Localized; text: Localized }>,
+  example: {
+    pt: "Exemplo: no Rumo, a IA monta o roadmap de estudo de cada pessoa, e o backend cuida de contas, créditos e saldo, que precisam estar sempre certos.",
+    en: "Example: in Rumo, AI builds each person's study roadmap, and the backend handles accounts, credits and balances, which always have to be right.",
+  },
 };
 
 export const SECRETS = {
@@ -255,11 +318,12 @@ export const UI = {
     pt: "Na iniciação científica, ajudei a criar uma interface para pessoas com ELA se comunicarem e controlarem a casa usando só o olhar. Ela funciona com a câmera do computador, conversa com a Alexa e manda mensagens pelo Telegram.",
     en: "During my undergraduate research, I helped create an interface that lets people with ALS communicate and control their home using only their eyes. It works with a computer camera, talks to Alexa and sends messages through Telegram.",
   },
-  paperAuthors: "Nathalia Costa, Vitor Gonzaga, Elisa Dester, Filipe Vilela, Rita de Almeida",
   readArticle: { pt: "Ler o artigo", en: "Read the paper" },
   credential: { pt: "Ver credencial", en: "View credential" },
+  certCoversTitle: { pt: "O que a certificação cobre", en: "What the certification covers" },
+  certConceptsTitle: { pt: "Conceitos do exame, em poucas palavras", en: "Exam concepts, in a few words" },
   spokenLanguages: { pt: "Idiomas", en: "Languages" },
-  languages: { pt: "Português nativo, inglês B2", en: "Native Portuguese, English B2" },
+  languages: { pt: "Português nativo, inglês avançado", en: "Native Portuguese, advanced English" },
   trophyHint: { pt: "Os projetos de que mais me orgulho. Ainda tem espaço na prateleira.", en: "The projects I'm proudest of. There's still room on the shelf." },
   extrasHint: { pt: "Outras coisas que construí pelo caminho.", en: "Other things I've built along the way." },
   seeExtras: { pt: "Ver outros projetos", en: "See other projects" },
